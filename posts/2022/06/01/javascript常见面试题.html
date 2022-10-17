@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>面试题 - JavaScript基础 | 黄文杰 的博客 ｜ huang Blog</title>
+    <meta name="generator" content="VuePress 1.9.7">
+    <link rel="icon" href="/blog/blog/favicon.ico">
+    <meta name="description" content="个人博客">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    
+    <link rel="preload" href="/blog/assets/css/0.styles.1a0d8da5.css" as="style"><link rel="preload" href="/blog/assets/js/app.9278b647.js" as="script"><link rel="preload" href="/blog/assets/js/6.b9ade4ff.js" as="script"><link rel="preload" href="/blog/assets/js/9.429b2cc6.js" as="script"><link rel="prefetch" href="/blog/assets/js/10.24968df8.js"><link rel="prefetch" href="/blog/assets/js/11.2e7fcfa4.js"><link rel="prefetch" href="/blog/assets/js/12.66267855.js"><link rel="prefetch" href="/blog/assets/js/13.715791f0.js"><link rel="prefetch" href="/blog/assets/js/14.539a9f7d.js"><link rel="prefetch" href="/blog/assets/js/2.4c97bbdc.js"><link rel="prefetch" href="/blog/assets/js/3.c2dabf62.js"><link rel="prefetch" href="/blog/assets/js/4.fddc1d5b.js"><link rel="prefetch" href="/blog/assets/js/5.384f7650.js"><link rel="prefetch" href="/blog/assets/js/7.fd9016ab.js"><link rel="prefetch" href="/blog/assets/js/8.f26ae0a1.js">
+    <link rel="stylesheet" href="/blog/assets/css/0.styles.1a0d8da5.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div id="global-layout" data-v-7f2e4136><header class="header-container" style="background-size:cover;background-repeat:no-repeat;background-position:center;background-attachment:scroll;background-image:url(/blog/home-bg.jpeg);" data-v-93921ff8 data-v-7f2e4136><nav class="navbar" style="position:absolute;opacity:1;transition:all 0.5s ease-in-out;" data-v-93921ff8><a href="/blog/" class="navbar-link router-link-active">
+    黄文杰的博客
+  </a> <ul class="navbar-links"><li><a href="/blog/" class="router-link-active">
+        HOME
+      </a></li><li><a href="/blog/about/">
+        ABOUT
+      </a></li><li><a href="/blog/tags/">
+        TAGS
+      </a></li></ul> <div id="nav-icon"><span></span><span></span><span></span></div></nav> <div class="header-title" data-v-93921ff8 data-v-93921ff8><h1 data-v-93921ff8>面试题 - JavaScript基础</h1> <p data-v-93921ff8></p></div></header> <div class="container" data-v-b3fda33c data-v-7f2e4136><main class="main" style="width:60%;" data-v-b3fda33c><div class="post" data-v-b3fda33c data-v-b3fda33c><article class="main-div"><div class="post-content content content__default"><h2 id="_1-1、-javascript数据类型"><a href="#_1-1、-javascript数据类型" class="header-anchor">#</a> 1.1、 Javascript数据类型</h2> <ul><li>原始类型: <code>Boolean</code>,<code>Null</code>,<code>undefined</code>,<code>Number</code>,<code>String</code></li> <li>引用类型: <code>Object</code>,<code>Array</code></li> <li>typeof null 是object, 是因为不同对象在底层都是二进制，而object和null的二进制表示都全是0，所以返回了object</li></ul> <h2 id="_1-2、数据类型判断"><a href="#_1-2、数据类型判断" class="header-anchor">#</a> 1.2、数据类型判断</h2> <ul><li>1、typeof 对于原始类型来说，除了null都可以显示正确的类型，引用类型则除了函数都是返回object</li></ul> <div class="language- extra-class"><pre class="language-text"><code>typeof 1 // number
+typeof '1' // string
+typeof undefined // undefined
+typeof null // object
+typeof true // boolean
+typeof [] // object
+typeof {} // object
+typeof console.log // function
+</code></pre></div><ul><li>2、 instanceof 可以判断对象的类型，是根据原型链来判做判断依据的</li></ul> <div class="language- extra-class"><pre class="language-text"><code>var a = 'test';
+a instanceof String // false
+
+var b = new String('test');
+b instanceof String // true
+
+var c = function(){};
+var d = new c();
+d instanceof c // true
+</code></pre></div><ul><li>3、 Object.prototype.toString</li></ul> <div class="language- extra-class"><pre class="language-text"><code>Object.prototype.toString.call('')  //  [object String]
+Object.prototype.toString.call(1)  // [object Number]
+Object.prototype.toString.call(true)  // [object Boolean]
+Object.prototype.toString.call(null)  // [object Null]
+Object.prototype.toString.call({})  // [object Object]
+Object.prototype.toString.call([])  // [object Array]
+
+Object.prototype.toString.call(new RegExp())  // [object RegExp]
+Object.prototype.toString.call(new Error())  // [object Error]
+Object.prototype.toString.call(document)  // [object HTMLDocument]
+Object.prototype.toString.call(window)  // [object Window]
+</code></pre></div><h2 id="_1-3、this指向"><a href="#_1-3、this指向" class="header-anchor">#</a> 1.3、this指向</h2> <ul><li>1、在非严格模式下，全局作用域下的普通函数的this指向window，严格模式下，this指向undefined</li> <li>2、在对象中，this指向被调用的对象</li> <li>3、在构造函数中，this指向实例对象</li> <li>4、在箭头函数中，this指向外层作用域的this</li></ul> <div class="language- extra-class"><pre class="language-text"><code>// 在函数中直接使用，指向window
+function get(){
+  console.log(this) 
+}
+get('1') // 也等于 get.call(window, '1') 打印window
+
+// 函数作为对象的方法被调用，谁调用我，我指向谁
+var person = {
+  name: '张三',
+  run: function(age){
+    console.log(`${this.name}今年${age}岁`);
+  }
+}
+person.run(30); // 指向person, 等于person.run.call(person, 30)  打印张三今年30岁
+
+// 在箭头函数中的this是定义函数的时候绑定，而不是在执行函数的时候绑定
+var x = 1;
+var obj = {
+  x: 2,
+  say: () =&gt; { console.log(this.x) }
+}
+obj.say() // 1
+
+/**
+ 箭头函数的this，是继承自父级执行上下文的this，
+ 如上的this.x， 箭头函数本身与say平级，也就是箭头函数本身所在的对象为obj，而obj的父级执行上下文是window，所以此时this指向window
+*/
+
+</code></pre></div><h2 id="_1-4、-和"><a href="#_1-4、-和" class="header-anchor">#</a> 1.4、 == 和 ===</h2> <p>== 和 === 的区别是 == 不会判断双方的数据类型，而 === 会判断数据类型</p> <h2 id="_1-5、闭包"><a href="#_1-5、闭包" class="header-anchor">#</a> 1.5、闭包</h2> <blockquote><p>什么是闭包</p></blockquote> <p>闭包是可以读取其他函数内部变量的函数</p> <blockquote><p>闭包的特性</p></blockquote> <ul><li>函数嵌套函数</li> <li>函数内部可以引用外部的参数和变量</li> <li>参数和变量不会被垃圾回收机制回收</li></ul> <blockquote><p>闭包的作用</p></blockquote> <p>闭包最常见的两个用处是 <code>读取函数内部的变量</code> 和 <code>让变量的值始终保持在内存中</code></p> <h2 id="_1-6、内存泄漏"><a href="#_1-6、内存泄漏" class="header-anchor">#</a> 1.6、内存泄漏</h2> <blockquote><p>什么是内存泄漏</p></blockquote> <p>指的是你用不到(访问不到)的变量，却依旧占据这内存空间，不会再被利用起来，就是内存泄漏</p> <blockquote><p>闭包造成内存泄漏</p></blockquote> <p>闭包本身不会造成内存泄漏，主要是因为旧版浏览在使用完闭包后，回收不了闭包里面引用的变量，所以造成内存泄漏</p> <blockquote><p>常见的内存泄漏</p></blockquote> <ul><li>意外的全局变量</li> <li>被遗忘的计数器或者回调函数</li> <li>脱离DOM的引用</li> <li>闭包</li></ul> <h2 id="_1-7、事件循环-event-loop"><a href="#_1-7、事件循环-event-loop" class="header-anchor">#</a> 1.7、事件循环 Event Loop</h2> <blockquote><p>单线程</p></blockquote> <ul><li>Javascrpt是 <code>单线程</code>，也就是同一时间只能做一件事</li> <li><code>任务队列</code> - 单线程就意味着，所有任务都需要排队，前面一个任务结束后才执行下一个任务</li> <li>所有任务可分为 <code>同步任务</code> 和 <code>异步任务</code></li></ul> <blockquote><p>什么是事件循环</p></blockquote> <ul><li>1、所有同步任务都在主线程上执行，行程一个 <code>执行栈</code></li> <li>2、主线程之外，还存在一个 <code>任务队列(消息队列)</code>，只要异步任务有了运行结果，就在这个任务队列中放置一个事件</li> <li>3、一旦执行栈中所以的同步任务执行完毕，系统会读取任务队列，看看里面有哪些事件，那些对应的异步任务，就会结束等待状态，进入执行栈，开始执行</li> <li>4、主线程不断重复上面3步</li></ul> <blockquote><p>事件循环机制简单说明执行顺序</p></blockquote> <ul><li>1、代码开始执行，创建一个全局调用栈，此时script作为宏任务执行</li> <li>2、执行完当前所有同步代码后，此时执行栈为空，查询是否有异步代码要执行</li> <li>3、执行所有微任务</li> <li>4、执行完微任务后，有需要则渲染页面</li> <li>5、执行新一轮循环，执行宏任务里的异步代码，比如setTimeout的回调函数</li></ul> <blockquote><p>异步任务</p></blockquote> <ul><li><p>异步任务是通过回调函数实现的，所有回调函数都是异步任务，一般有3种类型</p> <ul><li>普通事件，比如click,resize等</li> <li>资源加载，如load等</li> <li>定时器，如setTimeout，setInterval等</li></ul></li> <li><p>异步任务可细分为<code>宏任务</code>和<code>微任务</code></p> <ul><li>微任务包括： Promise,mutationObserve,Process.nextTick</li> <li>宏任务，非微任务的都是宏任务，如script,setTimeout,setInterval,SetImmediate,I/O,DOM事件，Ajax等</li></ul></li></ul> <h2 id="_1-8、进程、线程、执行栈"><a href="#_1-8、进程、线程、执行栈" class="header-anchor">#</a> 1.8、进程、线程、执行栈</h2> <blockquote><p>进程、线程是CPU工作时间片的一个描述</p></blockquote> <ul><li>进程： CPU在运行指令及加载和保存上下文所需要的时间</li> <li>线程：是进程中更小的单位，描述了执行一段指令所需的时间</li></ul> <blockquote><p>执行栈</p></blockquote> <ul><li>执行栈是一个存储函数调用的栈结构，遵循先进后出的原则，js代码执行就是往执行栈放入函数</li></ul> <h2 id="_1-9、原型和原型链"><a href="#_1-9、原型和原型链" class="header-anchor">#</a> 1.9、原型和原型链</h2> <blockquote><p>原型</p></blockquote> <p>任务对象实例都有原型，也叫原型对象，这个原型对象由对象的内置属性 <code>__proto__</code>指向它的构造函数的prototype指向的对象，即任务对象都是由一个构造函数创建的，但不是每一个对象都有prototype，只有方法才有prototype</p> <blockquote><p>原型链</p></blockquote> <p>当访问一个引用类型的属性时，在自身属性找不到这个属性时，会从隐式原型 __proto__上找，在这个原型找不到时，就会到这个原型的下一级原型上找，如此形成一个链式，就叫原型链</p> <div class="language- extra-class"><pre class="language-text"><code>// prototype: 显式原型
+// __proto__: 隐式原型
+
+class Person{
+  constructor(name){
+    this.name = name
+  }
+  drink() {}
+}
+
+class Teacher extends Person {
+  constructor(name){
+    this.name = name
+  },
+  teach(){
+    console.log(`我是${this.name}`)
+  }
+}
+
+const teacher = new Teacher(&quot;陈老师)
+teacher.teach() // 我是陈老师，teaher自身没有teach方法，其原型
+// teacher.__proto__ === Teacher.prototype
+</code></pre></div><p><img src="/blog/images/Javascript%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98/WX20220920-172214.png" alt="图片"></p> <h2 id="_1-10、变量提升和函数提升"><a href="#_1-10、变量提升和函数提升" class="header-anchor">#</a> 1.10、变量提升和函数提升</h2> <p>javascript中，函数以及变量的生命会提升到函数的最顶部，这个叫函数的 <code>函数提升和变量提升</code></p> <div class="language- extra-class"><pre class="language-text"><code>// 变量提升
+console.log(a)
+var a = 1
+// 以上代码实际编译时，顺序如下
+var a;
+console.log(a)
+a = 1
+
+// 函数提升，函数提升只会提升函数声明，不会提升函数表达式
+console.log(fn1) // [Function: fn1]
+fn1(); // fn1
+console.log(fn2); // undefined
+fn2(); // typeError: fn2 is not a function
+function fn1() {console.log('fn1')}
+var fn2 = function(){console.log('fn2')}
+
+</code></pre></div><h2 id="_1-11、防抖和节流"><a href="#_1-11、防抖和节流" class="header-anchor">#</a> 1.11、防抖和节流</h2> <ul><li><code>防抖</code>： 对于短时间内连续触发的事件，让其在一个时间期限内，只执行一次事件，如滚动事件</li></ul> <div class="language- extra-class"><pre class="language-text"><code>function debounce(fn, time){
+    let timer = null;
+    return function(){
+         if(timer){ clearTimeout(timer) }
+         timer = setTimeout(fn, time)
+    }
+}
+debounce(todo, 1000); // 1秒内只执行一次todo
+</code></pre></div><ul><li><code>节流</code>: 如果一个事件在短时间内大量触发，让它执行一次后，在指定时间内不再执行，如实时搜索框input事件</li></ul> <div class="language- extra-class"><pre class="language-text"><code>function throttle(fn, time){
+    let valid = true
+    return function(){
+        if(!valid) return false; // 处于暂停执行时间
+        valid = false
+        setTimeout(()=&gt;{  
+            fn()
+            valid = true
+        }, time)
+    }
+}
+throttle(todo, 1000); // 执行todo后1秒内不再执行
+</code></pre></div><h2 id="_1-12、事件冒泡和事件委托"><a href="#_1-12、事件冒泡和事件委托" class="header-anchor">#</a> 1.12、事件冒泡和事件委托</h2> <blockquote><p>事件冒泡<br>
+一个事件触发后，会在子元素和父元素之间传播，传播分为3个阶段</p></blockquote> <ul><li>捕获阶段 - 从window对象传导到目标节点，这个阶段不会响应任何事件</li> <li>目标阶段 - 在目标节点上触发</li> <li>冒泡阶段 - 从目标节点传导回window对象</li></ul> <blockquote><p>事件委托(事件代理)<br>
+事件委托是利用事件冒泡，只制定一个事件处理程序就可以管理某一列子元素的所有事件<br>
+比如把原本 item子元素列表的响应事件定义到父元素，由父元素根据实际情况判断触发哪个item子元素</p></blockquote> <h2 id="_1-13、es6新特性"><a href="#_1-13、es6新特性" class="header-anchor">#</a> 1.13、es6新特性</h2> <p><code>const</code>,<code>let</code>,<code>模板字符串</code>,<code>箭头函数</code>,<code>函数的默认参数值</code>,<code>对象和数组的解构赋值</code>,<code>for……of</code>,<code>for……in</code>,<code>展开运算符</code>等</p> <h2 id="_1-14、垃圾回收机制"><a href="#_1-14、垃圾回收机制" class="header-anchor">#</a> 1.14、垃圾回收机制</h2> <ul><li>JS的垃圾回收机制是为了防止内存泄漏，间歇的不定期的寻找到不再使用的变量，并释放它们所指向的内存</li> <li>垃圾回收的方式有
+<ul><li>1、标记清除算法 - 标记阶段给活动的对象做上标记，清除阶段把没有标记的对象销毁(缺点：内存碎片化，分配速度慢)</li> <li>2、引用计数算法 - 如果没有引用指向该对象，则销毁，现在很少使用这算法了</li></ul></li></ul> <h2 id="_1-15、new操作符做了哪些事情"><a href="#_1-15、new操作符做了哪些事情" class="header-anchor">#</a> 1.15、new操作符做了哪些事情</h2> <ul><li>1、创建一个空对象，并且this变量引用该对象，同时继承了该函数的原型</li> <li>2、属性和方法被加入到this引用的对象中</li> <li>3、新创建的对象由this所引用，最后隐式地返回this</li></ul> <p><code>一句话概括 - 新建一个空对象，这个对象原型指向构造函数的prototype，执行构造函数后返回这个对象</code></p> <h2 id="_1-16、bind-apply-call"><a href="#_1-16、bind-apply-call" class="header-anchor">#</a> 1.16、bind,apply,call</h2> <ul><li>call 、apply、bind都是改变this指向的，不同在于他们的调用方式和调用参数不一样</li></ul> <div class="language- extra-class"><pre class="language-text"><code>A.apply(B, [a,b])
+A.call(B, a, b)
+A.bind(B,a,b)()
+</code></pre></div><h2 id="_1-17、箭头函数"><a href="#_1-17、箭头函数" class="header-anchor">#</a> 1.17、箭头函数</h2> <ul><li>箭头函数是ES6的API</li> <li>箭头函数没有prototype,所以箭头函数本身没有this</li> <li>因为没有this，所以无法使用call/apply/call去改变this的指向</li> <li>箭头函数不绑定arguments，取而代之用rest参数代替去访问箭头函数的参数列表</li> <li>箭头函数不能用作generator函数，不能使用yeild关键字</li></ul> <h2 id="_1-18、构造函数"><a href="#_1-18、构造函数" class="header-anchor">#</a> 1.18、构造函数</h2> <ul><li>构造函数和普通函数创建方式一样，但调用方式不同 var a = new A()</li> <li>构造函数对比普通函数的作用不一样，构造函数是用来创建实例对象的</li> <li>构造函数的this指向它创建的对象实例</li></ul> <h2 id="_1-19、promise"><a href="#_1-19、promise" class="header-anchor">#</a> 1.19、Promise</h2> <blockquote><p>promise常用方法</p></blockquote> <ul><li>resolve()</li> <li>reject()</li> <li>then()</li> <li>catch()</li> <li>race() - 多个任务同时执行，返回最先执行结束的任务结果，不管成功还是失败</li> <li>all() - 多个任务同时执行，只有全部成功才返回成功结果，否则都是返回失败结果</li></ul> <blockquote><p>promise的3种状态</p></blockquote> <ul><li>pending - 初始状态，也叫等待状态</li> <li>fulfiled - 成功状态</li> <li>rejected - 失败状态
+状态一旦改变，就不会再变，创造promise实例后，它会立即执行</li></ul> <blockquote><p>promise的特点</p></blockquote> <ul><li>1、Promise对象的状态不受外界影响</li> <li>2、Promise的状态是不可逆的</li></ul> <blockquote><p>promise 的缺点</p></blockquote> <ul><li>无法取消promise，创建后立即执行，无法中途取消</li> <li>如果不设置回调函数，promise内部会抛出错误，不会反映到外部</li> <li>当处于pending状态时，无法得知目前是在哪一阶段</li></ul> <blockquote><p>promise解决的问题</p></blockquote> <ul><li>解决回调地狱、难以维护的代码</li> <li>promise 支持多并发，获取并发请求中的数据</li></ul> <h2 id="_1-20、generator-yield"><a href="#_1-20、generator-yield" class="header-anchor">#</a> 1.20、generator yield</h2> <ul><li><code>generator</code>：生成器，是ES6的新内容,作为异步编程的解决方案，用来解决异步任务</li> <li>用法是在函数上加上*，可以让我们在函数执行的任意地方暂停,下一步执行则使用next，与yield关键字一起使用</li> <li>yield 表达式本身没有返回值，或者返回undefined</li> <li>next，方法可以带一个参数，这个参数会被当做上一个yield的返回值</li></ul> <div class="language- extra-class"><pre class="language-text"><code>function* funA(){
+    var y yield console.log(1)
+    yield console.log('2' + y)
+}
+function run(){
+    console.log(3)
+}
+const iter = funA()
+iter.next(); // 1
+run(); // 3
+iter.next(‘a'); // 2a
+</code></pre></div><h2 id="_1-21、async-await"><a href="#_1-21、async-await" class="header-anchor">#</a> 1.21、async await</h2> <ul><li>async 是ES7新出的特性，是一个异步编程的解决方案, 是 generator 函数的语法糖，返回值是promised对象</li> <li>async 对应的是*</li> <li>await 对应的是yield</li></ul> <h2 id="_1-22、cookie-locastorage-settionstorage"><a href="#_1-22、cookie-locastorage-settionstorage" class="header-anchor">#</a> 1.22、cookie/locaStorage/settionStorage</h2> <table><thead><tr><th>特性</th> <th>cookie</th> <th>locaStorage</th> <th>sessionStorage</th></tr></thead> <tbody><tr><td>生命周期</td> <td>可设置失效时间，默认是关闭浏览器后失效</td> <td>不主动清除就永久保存</td> <td>只在当前会话标签有效，关闭标签或浏览器清除</td></tr> <tr><td>存储数据大小</td> <td>4k左右</td> <td>5M左右</td> <td>5M左右</td></tr> <tr><td>http请求</td> <td>每次会携带到HTTP请求头中</td> <td>仅在浏览器保存，不与服务器通信</td> <td>仅在浏览器保存，不与服务器通信</td></tr></tbody></table> <h2 id="_1-23、script标签的defer和async"><a href="#_1-23、script标签的defer和async" class="header-anchor">#</a> 1.23、script标签的defer和async</h2> <ul><li>1、不设置async和defer，那么脚本会同步下载并执行，会阻塞后续dom的渲染</li> <li>2、设置了defer，脚本异步加载，加载完毕后，在触发domContentloader事件之前执行</li> <li>3、设置async，脚本异步加载，加载完毕后立即执行，并阻塞后续dom渲染，不影响domContentLoaded事件触发</li></ul> <h2 id="_1-24、设计模式"><a href="#_1-24、设计模式" class="header-anchor">#</a> 1.24、设计模式</h2> <blockquote><p>1、外观模式</p></blockquote> <ul><li>就是把多个子级组件中复杂逻辑进行抽离，然后提供一个统一、简洁、易用的API</li> <li>优点： 减少组件的相互依赖性，提高灵活性</li> <li>缺点：要修改的时候可能会麻烦，因为多个地方用到，但修改不一定所有地方都要跟着变</li></ul> <blockquote><p>2、工程模式</p></blockquote> <ul><li>定义一个对象接口，又子类决定实例化哪个类，然后使子类可以创建或者重写指定的对象，就是一些经常反复使用的合计</li> <li>优点：提高复用性，代码容易理解，不管过程只管结果</li></ul> <div class="language- extra-class"><pre class="language-text"><code>function demo1(name){console.log(name)}
+function demo2(name){console.log(name)}
+function exportDemo(demoName, name){
+    switch(demoName){
+        case 'demo1': demo1(name);break;
+        case 'demo2': demo2(name);break;
+    }
+}
+exportDemo('demo1','名字')
+</code></pre></div><blockquote><p>3、单例模式</p></blockquote> <p>某个功能可以贯穿整个系统去执行的，比如登录框，vuex，redux的store</p> <blockquote><p>4、观察者模式(发布订阅模式)</p></blockquote> <p>全局定义一个可以发布、订阅的对象、包含on/emit/off/store，比如vue的响应式</p> <blockquote><p>5、代理模式</p></blockquote> <p>就是为一个对象找一个替代对象，以便对原对象进行访问，使用代理的原因是我们不想对原对象直接进行操作</p> <h2 id="_1-25、map和set的区别-map和object的区别"><a href="#_1-25、map和set的区别-map和object的区别" class="header-anchor">#</a> 1.25、Map和Set的区别，Map和Object的区别</h2> <ul><li>Set：是一种数据结构，类似数组，成员唯一，Set本身是一种构造函数</li> <li>Map：是一组键值对的结构</li> <li>Set和Map主要的应用场景在于 数据重组和数据储存</li> <li>Set是一种叫做集合的数据结构，Map是一种叫做字典的数据结构</li></ul> <blockquote><p>Set和Map区别</p></blockquote> <ul><li>相同点：集合、字典可以存储不重复的值</li> <li>不同点：集合Set是以 [value,value]的形式存储元素，字典Map是以 [key,valuye]的形式存储</li></ul> <blockquote><p>Map和Object区别</p></blockquote> <ul><li>在Object中，key必须是简单数据类型(整数、字符串)，而Map可以是js支持的所有数据类型</li> <li>Map元素的顺序遵循插入的顺序，而Object没有这个特性</li> <li>Map继承自Object对象</li></ul> <h2 id="_2-1、浏览器输入url后发生了什么"><a href="#_2-1、浏览器输入url后发生了什么" class="header-anchor">#</a> 2.1、浏览器输入URL后发生了什么</h2> <ul><li>1、DNS域名解析，域名解析为IP地址</li> <li>2、浏览器与目标服务器建立一个TCP链接</li> <li>3、浏览器向服务器发送请求报文</li> <li>4、服务器向浏览器发送响应报文</li> <li>5、浏览器进行渲染</li> <li>6、关闭TCP链接</li></ul> <h2 id="_2-2、跨域的方式"><a href="#_2-2、跨域的方式" class="header-anchor">#</a> 2.2、跨域的方式</h2> <ul><li>1、jsonp - 利用 <code>&lt;script&gt;</code> 标签没有跨域限制的漏洞,可以获取到json数据，简单兼容性好，仅支持get方式，容易被攻击</li> <li>2、CORS - 服务器端配置</li> <li>3、postMessage - HTML5 XML httpRequest的API</li> <li>4、websocket - HTML5的持久化协议，基于TCP协议，是一种双向通信协议，建立连接后，两端都能主动向对方发送或接受数据，一般用Socket.io,封装了websocket的接口</li> <li>5、Node中间件代理</li> <li>6、Nginx 反向代理</li></ul> <h2 id="_2-3、浏览器渲染步骤"><a href="#_2-3、浏览器渲染步骤" class="header-anchor">#</a> 2.3、浏览器渲染步骤</h2> <ul><li>1、HTML转换为DOM</li> <li>2、CSS转换为浏览器可理解的styleSheets，计算DOM节点的样式</li> <li>3、创建布局树，计算元素的布局信息</li> <li>4、对布局树进行分层，构建分层树</li> <li>5、为每个图层生产绘制列表，并将其体积到合成线程</li> <li>6、合成线程将图层转换为图块，进而将图块转为成位图</li> <li>7、合成线程发送绘制命令给浏览器</li> <li>8、浏览器根据绘制命令生产页面，并显示到显示器上</li></ul> <h2 id="_2-4、页面渲染优化"><a href="#_2-4、页面渲染优化" class="header-anchor">#</a> 2.4、页面渲染优化</h2> <ul><li>1、HTML文档结构层次尽量少，最好不深于6层</li> <li>2、脚本尽量放最后</li> <li>3、样式结构层次尽量简单</li> <li>4、脚本减少DOM操作，减少回流和重绘</li> <li>5、减少js修改样式，通过修改class名称解决</li></ul> <h2 id="_2-5、强缓存和协商缓存"><a href="#_2-5、强缓存和协商缓存" class="header-anchor">#</a> 2.5、强缓存和协商缓存</h2> <ul><li>强缓存：第一次请求资源时在http响应头设置一个过期时间，在时效内都将直接从浏览器获取，比如cache-control和expires</li> <li>协商缓存：通过http响应头字段etag或者last-modified等判断服务器上资源是否修改，有修改则重新获取，没修改则从浏览器缓存获取</li></ul> <h2 id="_2-6、post和get区别"><a href="#_2-6、post和get区别" class="header-anchor">#</a> 2.6、post和get区别</h2> <ul><li>1、get参数通过URL传递，post放在body中</li> <li>2、get请求在URL中传递的参数有长度限制，post没有</li> <li>3、get在浏览器回退是无害的，而post会再次提交请求</li> <li>4、get请求会被浏览器主动cache，post不会</li> <li>5、get只接受ASCLL字符，post没有限制</li> <li>6、get产生一个tcp数据包，post产生两个tcp数据包</li></ul> <h2 id="_2-7、http和https区别"><a href="#_2-7、http和https区别" class="header-anchor">#</a> 2.7、HTTP和HTTPS区别</h2> <h2 id="_2-8、同源策略"><a href="#_2-8、同源策略" class="header-anchor">#</a> 2.8、同源策略</h2> <p>同源策略指的是 协议、域名、端口相同，是一种安全协议</p> <h2 id="_2-9、前端安全方法"><a href="#_2-9、前端安全方法" class="header-anchor">#</a> 2.9、前端安全方法</h2> <ul><li><p>XSS脚本攻击: 跨站脚本攻击，是常见和基本的攻击web网站的方法,攻击者通过注入非法的html标签或者javascript代码，从而当用户浏览该网页时，控制用户浏览器</p></li> <li><p>XSS防御方法</p></li> <li><p>httpOnly: 在cookie中设置httpOnly属性，使js脚本无法读取cookie信息</p></li> <li><p>前端加上输入检查，后端做过滤检查</p></li> <li><p>对用户输入的数据做标签转换</p></li> <li><p>CSRF: 跨站点请求伪造，冒充用户发起请求，完成一些违背用户意愿的事，如修改用户信息等</p></li> <li><p>CSRF防御方法</p></li> <li><p>验证码 - 强制用户必须与应用进行交互，才完成请求</p></li> <li><p>表单提交尽量使用post，get相对容易被哪来做CSRF攻击</p></li> <li><p>请求来源限制</p></li> <li><p>token验证 - 默认适合的方案</p></li></ul> <h2 id="_2-10、html5新特性"><a href="#_2-10、html5新特性" class="header-anchor">#</a> 2.10、html5新特性</h2> <ul><li>新增了语义化标签 - header/nav/footer/section等</li> <li>增强型表单 - 新增input的number/url/email/range/color/date等输入型控件，还添加了placeholder/min/max/height/width等表单属性</li> <li>DOM拓展 - 新增getElementByClassName、classList属性等</li> <li>原生拖放 - draggable标识是否可拖拽 <code>&lt;div draggable=&quot;true&quot;&gt;James&lt;/div&gt;</code></li> <li>媒体元素 - audio和video</li> <li>web socket - 提供全双工、双向通信</li> <li>web storage - localStorage和sessionStorage</li> <li>地理位置 - Geolocation API</li> <li>canvas绘图</li></ul> <h2 id="_2-11、css3新特性"><a href="#_2-11、css3新特性" class="header-anchor">#</a> 2.11、css3新特性</h2> <ul><li>过渡 - transition</li> <li>动画 - animation</li> <li>形状转换 - transform</li> <li>选择器 - :nth-child,:last-child,:root,:checked等 选择器参考手册</li> <li>阴影 - box-shadow</li> <li>边框 - border-image,border-radius</li> <li>背景 - background-clip/background-origin/background-size</li> <li>文字 - word-break(换行)，text-overflow</li> <li>颜色 - rgba</li> <li>渐变 - gradient</li> <li>滤镜 - filter</li> <li>flex - 弹性布局</li> <li>媒体查询 - @media</li></ul> <h2 id="_2-22、常规前端性能优化"><a href="#_2-22、常规前端性能优化" class="header-anchor">#</a> 2.22、常规前端性能优化</h2> <blockquote><p>content方面</p></blockquote> <ul><li>减少HTTP请求</li> <li>减少DNS查询 - DNS缓存</li> <li>避免重定向 - 多余的中间访问</li> <li>使用ajax可缓存</li> <li>非必须组件延迟加载</li> <li>未来所需组件预加载</li> <li>减少DOM元素数量</li> <li>将资源放到不同域下 - 浏览器同时从一个域下载资源的数目有限</li> <li>避免404</li></ul> <blockquote><p>Server方面</p></blockquote> <ul><li>使用CDN</li> <li>添加Expires或者cache-control响应头</li> <li>对组件使用gzip压缩</li> <li>配置etag</li> <li>ajax使用get进行请求</li> <li>避免空src的img标签</li></ul> <blockquote><p>css方面</p></blockquote> <ul><li>将样式表放到页面顶部</li> <li>不使用CSS表达式</li> <li>不使用IE的Filter</li></ul> <blockquote><p>javascript方面</p></blockquote> <ul><li>将脚本放到页面底部</li> <li>将javascript和css从外部引入</li> <li>压缩javascript和css</li> <li>删除不要的脚本</li> <li>减少DOM操作</li></ul></div></article> <!----></div></main> <aside class="aside" data-v-b3fda33c data-v-b3fda33c><div class="info-card main-div" data-v-1311ce9e data-v-b3fda33c><div class="info-card-header" data-v-1311ce9e><img src="/blog/avatar-top.jpeg" alt="黄文杰" class="info-avatar" data-v-1311ce9e></div> <div class="info-card-body" data-v-1311ce9e><section class="info-name" data-v-1311ce9e>
+      黄文杰
+    </section> <section class="info-desc" data-v-1311ce9e>好好学习<br/>天天向上</section> <section class="info-contact" data-v-1311ce9e><section data-v-1311ce9e><span data-v-1311ce9e data-v-1311ce9e><svg class="icon" style="font-size:1em;" data-v-1311ce9e data-v-1311ce9e><use xlink:href="#icon-location" data-v-1311ce9e data-v-1311ce9e></use></svg><span class="info-text" data-v-1311ce9e data-v-1311ce9e>
+          Guangzhou, China
+        </span></span></section> <!----> <section data-v-1311ce9e><span data-v-1311ce9e data-v-1311ce9e><svg class="icon" style="font-size:1em;" data-v-1311ce9e data-v-1311ce9e><use xlink:href="#icon-email" data-v-1311ce9e data-v-1311ce9e></use></svg><span class="info-text" data-v-1311ce9e data-v-1311ce9e>
+          879771632@qq.com
+        </span></span></section></section></div> <div class="info-card-footer" data-v-1311ce9e><p class="footer-sns-link" data-v-1311ce9e><a target="_blank" href="" class="sns-link" data-v-1311ce9e><span class="sns-icon" data-v-1311ce9e data-v-1311ce9e><svg class="icon" style="font-size:35px;" data-v-1311ce9e data-v-1311ce9e><use xlink:href="#icon-weibo" data-v-1311ce9e data-v-1311ce9e></use></svg></span></a><a target="_blank" href="" class="sns-link" data-v-1311ce9e><span class="sns-icon" data-v-1311ce9e data-v-1311ce9e><svg class="icon" style="font-size:35px;" data-v-1311ce9e data-v-1311ce9e><use xlink:href="#icon-zhihu" data-v-1311ce9e data-v-1311ce9e></use></svg></span></a><a target="_blank" href="" class="sns-link" data-v-1311ce9e><span class="sns-icon" data-v-1311ce9e data-v-1311ce9e><svg class="icon" style="font-size:35px;" data-v-1311ce9e data-v-1311ce9e><use xlink:href="#icon-github" data-v-1311ce9e data-v-1311ce9e></use></svg></span></a></p></div></div> <div class="post-toc main-div aside-toc" style="position:relative;top:0;width:0px;" data-v-b3fda33c><h4>- CATALOG</h4> <div class="post-nav-toc"><ul><li><a href="/blog/posts/2022/06/01/javascript%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98.html#_1-1、-javascript数据类型">1.1、 Javascript数据类型</a></li><li><a href="/blog/posts/2022/06/01/javascript%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98.html#_1-2、数据类型判断">1.2、数据类型判断</a></li><li><a href="/blog/posts/2022/06/01/javascript%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98.html#_1-3、this指向">1.3、this指向</a></li><li><a href="/blog/posts/2022/06/01/javascript%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98.html#_1-4、-和">1.4、 == 和 ===</a></li><li><a href="/blog/posts/2022/06/01/javascript%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98.html#_1-5、闭包">1.5、闭包</a></li><li><a href="/blog/posts/2022/06/01/javascript%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98.html#_1-6、内存泄漏">1.6、内存泄漏</a></li><li><a href="/blog/posts/2022/06/01/javascript%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98.html#_1-7、事件循环-event-loop">1.7、事件循环 Event Loop</a></li><li><a href="/blog/posts/2022/06/01/javascript%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98.html#_1-8、进程、线程、执行栈">1.8、进程、线程、执行栈</a></li><li><a href="/blog/posts/2022/06/01/javascript%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98.html#_1-9、原型和原型链">1.9、原型和原型链</a></li><li><a href="/blog/posts/2022/06/01/javascript%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98.html#_1-10、变量提升和函数提升">1.10、变量提升和函数提升</a></li><li><a href="/blog/posts/2022/06/01/javascript%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98.html#_1-11、防抖和节流">1.11、防抖和节流</a></li><li><a href="/blog/posts/2022/06/01/javascript%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98.html#_1-12、事件冒泡和事件委托">1.12、事件冒泡和事件委托</a></li><li><a href="/blog/posts/2022/06/01/javascript%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98.html#_1-13、es6新特性">1.13、es6新特性</a></li><li><a href="/blog/posts/2022/06/01/javascript%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98.html#_1-14、垃圾回收机制">1.14、垃圾回收机制</a></li><li><a href="/blog/posts/2022/06/01/javascript%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98.html#_1-15、new操作符做了哪些事情">1.15、new操作符做了哪些事情</a></li><li><a href="/blog/posts/2022/06/01/javascript%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98.html#_1-16、bind-apply-call">1.16、bind,apply,call</a></li><li><a href="/blog/posts/2022/06/01/javascript%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98.html#_1-17、箭头函数">1.17、箭头函数</a></li><li><a href="/blog/posts/2022/06/01/javascript%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98.html#_1-18、构造函数">1.18、构造函数</a></li><li><a href="/blog/posts/2022/06/01/javascript%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98.html#_1-19、promise">1.19、Promise</a></li><li><a href="/blog/posts/2022/06/01/javascript%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98.html#_1-20、generator-yield">1.20、generator yield</a></li><li><a href="/blog/posts/2022/06/01/javascript%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98.html#_1-21、async-await">1.21、async await</a></li><li><a href="/blog/posts/2022/06/01/javascript%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98.html#_1-22、cookie-locastorage-settionstorage">1.22、cookie/locaStorage/settionStorage</a></li><li><a href="/blog/posts/2022/06/01/javascript%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98.html#_1-23、script标签的defer和async">1.23、script标签的defer和async</a></li><li><a href="/blog/posts/2022/06/01/javascript%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98.html#_1-24、设计模式">1.24、设计模式</a></li><li><a href="/blog/posts/2022/06/01/javascript%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98.html#_1-25、map和set的区别-map和object的区别">1.25、Map和Set的区别，Map和Object的区别</a></li><li><a href="/blog/posts/2022/06/01/javascript%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98.html#_2-1、浏览器输入url后发生了什么">2.1、浏览器输入URL后发生了什么</a></li><li><a href="/blog/posts/2022/06/01/javascript%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98.html#_2-2、跨域的方式">2.2、跨域的方式</a></li><li><a href="/blog/posts/2022/06/01/javascript%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98.html#_2-3、浏览器渲染步骤">2.3、浏览器渲染步骤</a></li><li><a href="/blog/posts/2022/06/01/javascript%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98.html#_2-4、页面渲染优化">2.4、页面渲染优化</a></li><li><a href="/blog/posts/2022/06/01/javascript%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98.html#_2-5、强缓存和协商缓存">2.5、强缓存和协商缓存</a></li><li><a href="/blog/posts/2022/06/01/javascript%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98.html#_2-6、post和get区别">2.6、post和get区别</a></li><li><a href="/blog/posts/2022/06/01/javascript%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98.html#_2-7、http和https区别">2.7、HTTP和HTTPS区别</a></li><li><a href="/blog/posts/2022/06/01/javascript%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98.html#_2-8、同源策略">2.8、同源策略</a></li><li><a href="/blog/posts/2022/06/01/javascript%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98.html#_2-9、前端安全方法">2.9、前端安全方法</a></li><li><a href="/blog/posts/2022/06/01/javascript%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98.html#_2-10、html5新特性">2.10、html5新特性</a></li><li><a href="/blog/posts/2022/06/01/javascript%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98.html#_2-11、css3新特性">2.11、css3新特性</a></li><li><a href="/blog/posts/2022/06/01/javascript%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98.html#_2-22、常规前端性能优化">2.22、常规前端性能优化</a></li></ul></div></div></aside></div> <footer class="footer" data-v-7f2e4136><p class="footer-sns-link"><a target="_blank" href="" class="sns-link"><span class="sns-icon"><svg class="icon" style="font-size:40px;"><use xlink:href="#icon-weibo"></use></svg></span></a><a target="_blank" href="" class="sns-link"><span class="sns-icon"><svg class="icon" style="font-size:40px;"><use xlink:href="#icon-zhihu"></use></svg></span></a><a target="_blank" href="" class="sns-link"><span class="sns-icon"><svg class="icon" style="font-size:40px;"><use xlink:href="#icon-github"></use></svg></span></a></p> <div class="copyright"><span id="custom"></span> <!----></div></footer></div><div class="global-ui"><!----><!----></div></div>
+    <script src="/blog/assets/js/app.9278b647.js" defer></script><script src="/blog/assets/js/6.b9ade4ff.js" defer></script><script src="/blog/assets/js/9.429b2cc6.js" defer></script>
+  </body>
+</html>
